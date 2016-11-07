@@ -11,3 +11,13 @@ variable "AMIS" {
     eu-west-1 = "ami-844e0bf7"
   }
 }
+
+variable "PATH_TO_PRIVATE_KEY" {
+  default = "./.ssh-aws/mykey"
+}
+variable "PATH_TO_PUBLIC_KEY" {
+  default = "./.ssh-aws/mykey.pub"
+}
+variable "INSTANCE_USERNAME" {
+  default = "ubuntu"
+}
