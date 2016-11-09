@@ -18,20 +18,20 @@ resource "aws_security_group" "from_europe" {
     cidr_blocks = [ "${data.aws_ip_ranges.european_ec2.cidr_blocks}" ]
   }
   ingress {
-    from_port = "any"
+    from_port = "22"
     to_port = "22"
     protocol = "tcp"
     cidr_blocks = ["${data.aws_ip_ranges.european_ec2.cidr_blocks}"]
   }
   ingress {
-    from_port = "any"
+    from_port = "80"
     to_port = "80"
     protocol = "tcp"
     cidr_blocks = ["${data.aws_ip_ranges.european_ec2.cidr_blocks}"]
   }
   ingress {
-    from_port = "any"
-    to_port = "any"
+    from_port = "8"
+    to_port = "0"
     protocol = "icmp"
     cidr_blocks = ["${data.aws_ip_ranges.european_ec2.cidr_blocks}"]
     cidr_blocks = ["${data.aws_ip_ranges.us_ec2.cidr_blocks}"]
