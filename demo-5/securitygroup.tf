@@ -8,8 +8,8 @@ data "aws_ip_ranges" "us_ec2" {
   services = [ "ec2" ]
 }
 
-resource "aws_security_group" "from_europe" {
- name = "from_europe"
+resource "aws_security_group" "https_from_europe" {
+ name = "https_from_europe"
 
   ingress {
     from_port = "443"
@@ -17,29 +17,53 @@ resource "aws_security_group" "from_europe" {
     protocol = "tcp"
     cidr_blocks = [ "${data.aws_ip_ranges.european_ec2.cidr_blocks}" ]
   }
+  tags {
+    CreateDate = "${data.aws_ip_ranges.european_ec2.create_date}"
+    SyncToken = "${data.aws_ip_ranges.european_ec2.sync_token}"
+  }
+}
+
+resource "aws_security_group" "ssh_from_europe" {
+ name = "ssh_from_europe"
+
   ingress {
     from_port = "22"
     to_port = "22"
     protocol = "tcp"
     cidr_blocks = ["${data.aws_ip_ranges.european_ec2.cidr_blocks}"]
   }
+  tags {
+    CreateDate = "${data.aws_ip_ranges.european_ec2.create_date}"
+    SyncToken = "${data.aws_ip_ranges.european_ec2.sync_token}"
+  }
+}
+
+resource "aws_security_group" "http_from_europe" {
+ name = "http_from_europe"
+
   ingress {
     from_port = "80"
     to_port = "80"
     protocol = "tcp"
     cidr_blocks = ["${data.aws_ip_ranges.european_ec2.cidr_blocks}"]
   }
+  tags {
+    CreateDate = "${data.aws_ip_ranges.european_ec2.create_date}"
+    SyncToken = "${data.aws_ip_ranges.european_ec2.sync_token}"
+  }
+}
+
+resource "aws_security_group" "icmp_from_europe" {
+ name = "icmp_from_europe"
+
   ingress {
     from_port = "8"
     to_port = "0"
     protocol = "icmp"
     cidr_blocks = ["${data.aws_ip_ranges.european_ec2.cidr_blocks}"]
-    cidr_blocks = ["${data.aws_ip_ranges.us_ec2.cidr_blocks}"]
   }
-
   tags {
     CreateDate = "${data.aws_ip_ranges.european_ec2.create_date}"
     SyncToken = "${data.aws_ip_ranges.european_ec2.sync_token}"
   }
-
 }
